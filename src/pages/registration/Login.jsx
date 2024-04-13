@@ -1,7 +1,6 @@
-import { Link } from 'react-router-dom'
+import React from 'react'
 
-function Login() {
-   
+const Login = () => {
     return (
         <div className=' flex justify-center items-center h-screen'>
             <div className=' bg-gray-800 px-10 py-10 rounded-xl '>
