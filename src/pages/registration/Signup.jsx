@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 
 function Signup() {
-   
+
     return (
         <div className=' flex justify-center items-center h-screen'>
             <div className=' bg-gray-800 px-10 py-10 rounded-xl '>
