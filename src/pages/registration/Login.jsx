@@ -11,6 +11,7 @@ function Login() {
                 <div>
                     <input type="email"
                         name='email'
+                        id='email'
                         className=' bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
                         placeholder='Email'
                     />
@@ -18,6 +19,8 @@ function Login() {
                 <div>
                     <input
                         type="password"
+                        name="password"
+                        id="password"
                         className=' bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
                         placeholder='Password'
                     />
