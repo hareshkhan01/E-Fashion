@@ -9,9 +9,15 @@ import { RxCross2 } from 'react-icons/rx'
 
 const Navbar = () => {
   const [open, setOpen] = useState(false)
+  const user=JSON.parse(localStorage.getItem('user'));
 
   const context = useContext(myContext)
   const { toggleMode, mode } = context
+
+  const logout=()=>{
+    localStorage.clear('user')
+    window.location.href='/login'
+  }
 
   return (
 
@@ -58,23 +64,23 @@ const Navbar = () => {
                   <Link to={'/allproducts'} className="text-sm font-medium text-gray-900 " style={{ color: mode === 'dark' ? 'white' : '', }}>
                     All Products
                   </Link>
-                  <div className="flow-root">
+                  {user ? <div className="flow-root">
                     <Link to={'/order'} style={{ color: mode === 'dark' ? 'white' : '', }} className="-m-2 block p-2 font-medium text-gray-900">
                       Order
                     </Link>
-                  </div>
+                  </div>:""}
 
-                  <div className="flow-root">
+                 {user?.user?.email==="sukanyaparh@gmail.com"? <div className="flow-root">
                     <Link to={'/dashboard'} className="-m-2 block p-2 font-medium text-gray-900" style={{ color: mode === 'dark' ? 'white' : '', }}>
                       admin
                     </Link>
-                  </div>
+                  </div>:""}
 
-                  <div className="flow-root">
+                {user?  <div className="flow-root">
                     <a className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer" style={{ color: mode === 'dark' ? 'white' : '', }}>
                       Logout
                     </a>
-                  </div>
+                  </div>:""}
                   <div className="flow-root">
                     <Link to={'/'} className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer">
                       <img
@@ -136,16 +142,17 @@ const Navbar = () => {
                   <Link to={'/allproducts'} className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
                     All Products
                   </Link>
-                  <Link to={'/order'} className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
+                  {user ? <Link to={'/order'} className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
                     Order
-                  </Link>
-                  <Link to={'/dashboard'} className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
-                    Admin
-                  </Link>
+                  </Link>:""}
 
-                  <a className="text-sm font-medium text-gray-700 cursor-pointer  " style={{ color: mode === 'dark' ? 'white' : '', }}>
+                  {user?.user?.email==='sukanyaparh@gmail.com'?<Link to={'/dashboard'} className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
+                    Admin
+                  </Link>:""}
+
+                  {user?<a onClick={logout} className="text-sm font-medium text-gray-700 cursor-pointer  " style={{ color: mode === 'dark' ? 'white' : '', }}>
                     Logout
-                  </a>
+                  </a>: ""}
                 </div>
 
                 <div className="hidden lg:ml-8 lg:flex">
