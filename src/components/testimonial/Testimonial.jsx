@@ -13,7 +13,7 @@ function Testimonial() {
                     <div className="flex flex-wrap -m-4">
                         <div className="lg:w-1/4 lg:mb-0 mb-6 p-4">
                             <div className="h-full text-center">
-                                <img alt="testimonial" className="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100" src="https://ecommerce-sk.vercel.app/img/kamal.png" />
+                                <img alt="testimonial" className="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100" src="https://firebasestorage.googleapis.com/v0/b/quick-bazar-e968a.appspot.com/o/user_icon.png?alt=media&token=838fa298-6f46-450c-ab42-a50cf77ee38f" />
                                 
                                 
                                 <h2 style={{color: mode === 'dark' ? '#ff4162' : ''}} className="text-gray-900 font-medium title-font tracking-wider text-sm uppercase">Haresh Khan</h2>
@@ -22,7 +22,7 @@ function Testimonial() {
                         </div>
                         <div className="lg:w-1/4 lg:mb-0 mb-6 p-4">
                             <div className="h-full text-center">
-                                <img alt="testimonial" className="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100" src="https://cdn-icons-png.flaticon.com/128/2763/2763444.png" />
+                                <img alt="testimonial" className="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100" src="https://firebasestorage.googleapis.com/v0/b/quick-bazar-e968a.appspot.com/o/user_icon.png?alt=media&token=838fa298-6f46-450c-ab42-a50cf77ee38f" />
                                 
                                 
                                 <h2 style={{color: mode === 'dark' ? '#ff4162' : ''}} className="text-gray-900 font-medium title-font tracking-wider text-sm uppercase">Partha Raut</h2>
@@ -31,7 +31,7 @@ function Testimonial() {
                         </div>
                         <div className="lg:w-1/4 lg:mb-0 p-4">
                             <div className="h-full text-center">
-                                <img alt="testimonial" className="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100" src="https://webknudocs.vercel.app/logo/react.png" />
+                                <img alt="testimonial" className="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100" src="https://firebasestorage.googleapis.com/v0/b/quick-bazar-e968a.appspot.com/o/user_icon.png?alt=media&token=838fa298-6f46-450c-ab42-a50cf77ee38f" />
                                 
                                 
                                 <h2 style={{color: mode === 'dark' ? '#ff4162' : ''}} className="text-gray-900 font-medium title-font tracking-wider text-sm uppercase">Rajashree Roy</h2>
@@ -42,7 +42,7 @@ function Testimonial() {
                         </div>
                         <div className="lg:w-1/4 lg:mb-0 p-4">
                             <div className="h-full text-center">
-                                <img alt="testimonial" className="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100" src="https://webknudocs.vercel.app/logo/react.png" />
+                                <img alt="testimonial" className="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100" src="https://firebasestorage.googleapis.com/v0/b/quick-bazar-e968a.appspot.com/o/user_icon.png?alt=media&token=838fa298-6f46-450c-ab42-a50cf77ee38f" />
                                 
                                 
                                 <h2 style={{color: mode === 'dark' ? '#ff4162' : ''}} className="text-gray-900 font-medium title-font tracking-wider text-sm uppercase">Sukanya Parh</h2>
