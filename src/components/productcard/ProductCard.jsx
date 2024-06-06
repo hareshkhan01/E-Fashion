@@ -13,7 +13,8 @@ function ProductCard() {
     const dispatch = useDispatch()
     const cartItems = useSelector((state) => state.cart)
     console.log(cartItems)
-
+    
+    const user = JSON.parse(localStorage.getItem('user'))
     // add to cart
     const addCart = (product) => {
         dispatch(addToCart(product))
@@ -53,8 +54,7 @@ function ProductCard() {
                                             {/*<p className="leading-relaxed mb-3">{item.description}</p>*/ }
                                             <p className="leading-relaxed mb-3" style={{ color: mode === 'dark' ? 'white' : '' }}>₹ {price}</p>
                                             <div className=" flex justify-center">
-                                                <button onClick={() => addCart(item)} type="button" className="focus:outline-none text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm w-full  py-2">Add To Cart</button>
-
+                                                <button onClick={() => {user?addCart(item):location.href="/login"}} type="button" className="focus:outline-none text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm w-full  py-2">Add To Cart</button>
                                             </div>
                                         </div>
 
