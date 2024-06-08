@@ -77,7 +77,7 @@ export default function Navbar() {
 
                   {admin?.user?.email === 'sukanyaparh@gmail.com' ? <div className="flow-root">
                     <Link to={'/dashboard'} className="-m-2 block p-2 font-medium text-gray-900" style={{ color: mode === 'dark' ? 'white' : '', }}>
-                      admin
+                      Admin
                     </Link>
                   </div> : ""}
 
@@ -90,8 +90,8 @@ export default function Navbar() {
                     <Link to={'/'} className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer">
                       <img
                         className="inline-block w-10 h-10 rounded-full"
-                        src="https://overreacted.io/static/profile-pic-c715447ce38098828758e525a1128b87.jpg"
-                        alt="Dan_Abromov" />                                        </Link>
+                        src="https://firebasestorage.googleapis.com/v0/b/quick-bazar-e968a.appspot.com/o/user_icon.png?alt=media&token=838fa298-6f46-450c-ab42-a50cf77ee38f"
+                        alt="User" />                                        </Link>
                   </div>
                 </div>
 
