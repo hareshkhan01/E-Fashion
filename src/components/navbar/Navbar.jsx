@@ -14,11 +14,11 @@ export default function Navbar() {
   const context = useContext(myContext)
   const { toggleMode, mode } = context
 
-  const user = JSON.parse(localStorage.getItem('user'))
-  const admin = JSON.parse(localStorage.getItem('user'))
+  const user = JSON.parse(localStorage.getItem('user_login'))
+  const admin = JSON.parse(localStorage.getItem('user_login'))
 
   const logout = () => {
-    localStorage.clear('user')
+    localStorage.clear('user_login')
     localStorage.clear('user');
     window.location.href = "/"
   }

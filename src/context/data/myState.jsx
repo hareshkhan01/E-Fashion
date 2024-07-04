@@ -4,7 +4,6 @@ import { fireDB } from '../../firebase/FirebaseConfig';
 import { Timestamp, addDoc, collection, deleteDoc, doc, getDocs, onSnapshot, orderBy, query, setDoc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 
-
 function MyState(props) {
   const [mode, setMode] = useState('light');
   const [loading, setLoading] = useState(false);
@@ -13,8 +12,7 @@ function MyState(props) {
     if (mode === 'light') {
       setMode('dark');
       document.body.style.backgroundColor = 'rgb(17, 24, 39)';
-    }
-    else {
+    } else {
       setMode('light');
       document.body.style.backgroundColor = 'white';
     }
@@ -35,154 +33,190 @@ function MyState(props) {
         year: "numeric",
       }
     )
+  });
 
-  })
-
-  // ********************** Add Product Section  **********************
   const addProduct = async () => {
-    if (products.title == null || products.price == null || products.imageUrl == null || products.category == null || products.description == null) {
-      return toast.error('Please fill all fields')
+    if (Object.values(products).includes(null)) {
+      return toast.error('Please fill all fields');
     }
-    const productRef = collection(fireDB, "products")
-    setLoading(true)
+    const productRef = collection(fireDB, "products");
+    setLoading(true);
     try {
-      await addDoc(productRef, products)
-      toast.success("Product Add successfully")
-      getProductData()
-      closeModal()
-      setLoading(false)
+      await addDoc(productRef, products);
+      toast.success("Product added successfully");
+      getProductData();
+      setLoading(false);
+      window.location.href = '/dashboard';
     } catch (error) {
-      console.log(error)
-      setLoading(false)
+      console.log(error);
+      setLoading(false);
     }
-    setProducts("")
+    setProducts("");
   }
 
   const [product, setProduct] = useState([]);
 
-  // ****** get product
   const getProductData = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
-      const q = query(
-        collection(fireDB, "products"),
-        orderBy("time"),
-        // limit(5)
-      );
+      const q = query(collection(fireDB, "products"), orderBy("time"));
       const data = onSnapshot(q, (QuerySnapshot) => {
         let productsArray = [];
         QuerySnapshot.forEach((doc) => {
           productsArray.push({ ...doc.data(), id: doc.id });
         });
-        setProduct(productsArray)
+        setProduct(productsArray);
         setLoading(false);
       });
       return () => data;
     } catch (error) {
-      console.log(error)
-      setLoading(false)
+      console.log(error);
+      setLoading(false);
     }
   }
-
 
   const edithandle = (item) => {
-    setProducts(item)
+    setProducts(item);
   }
-  // update product
-  const updateProduct = async (item) => {
-    setLoading(true)
+
+  const updateProduct = async () => {
+    setLoading(true);
     try {
-      await setDoc(doc(fireDb, "products", products.id), products);
-      toast.success("Product Updated successfully")
+      await setDoc(doc(fireDB, "products", products.id), products);
+      toast.success("Product updated successfully");
       getProductData();
-      setLoading(false)
-      window.location.href = '/dashboard'
+      setLoading(false);
+      window.location.href = '/dashboard';
     } catch (error) {
-      setLoading(false)
-      console.log(error)
+      console.log(error);
+      setLoading(false);
     }
-    setProducts("")
+    setProducts("");
   }
 
   const deleteProduct = async (item) => {
-
     try {
-      setLoading(true)
+      setLoading(true);
       await deleteDoc(doc(fireDB, "products", item.id));
-      toast.success('Product Deleted successfully')
-      setLoading(false)
-      getProductData()
+      toast.success('Product deleted successfully');
+      getProductData();
+      setLoading(false);
     } catch (error) {
-      // toast.success('Product Deleted Falied')
-      setLoading(false)
+      console.log(error);
+      setLoading(false);
     }
   }
-
 
   const [order, setOrder] = useState([]);
 
   const getOrderData = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
-      const result = await getDocs(collection(fireDB, "orders"))
+      const result = await getDocs(collection(fireDB, "orders"));
       const ordersArray = [];
       result.forEach((doc) => {
         ordersArray.push(doc.data());
-        setLoading(false)
+        setLoading(false);
       });
       setOrder(ordersArray);
-      // console.log(ordersArray)
       setLoading(false);
     } catch (error) {
-      console.log(error)
-      setLoading(false)
+      console.log(error);
+      setLoading(false);
     }
   }
-
 
   const [user, setUser] = useState([]);
 
-  const getUserData = async () => {
-    setLoading(true)
+  const getUsersData = async () => {
+    setLoading(true);
     try {
-      const result = await getDocs(collection(fireDB, "users"))
+      const result = await getDocs(collection(fireDB, "users"));
       const usersArray = [];
       result.forEach((doc) => {
         usersArray.push(doc.data());
-        setLoading(false)
+        setLoading(false);
       });
       setUser(usersArray);
-      console.log(usersArray)
       setLoading(false);
     } catch (error) {
-      console.log(error)
-      setLoading(false)
+      console.log(error);
+      setLoading(false);
     }
   }
 
+  const [currentUser, setCurrentUser] = useState(null);
+  const [wishLists, setWishLists] = useState([]);
+
+  const getUserData = async () => {
+    const user_from_local = JSON.parse(localStorage.getItem('user_login'));
+    const userId = user_from_local.user.uid;
+    try {
+      const result = await getDocs(collection(fireDB, "users"));
+      result.forEach((doc) => {
+        const data = doc.data();
+        if (data.uid === userId) {
+          setCurrentUser({ ...data, id: doc.id });
+          setWishLists(data.wishList || []); // Ensure wishList is always an array
+        }
+      });
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  }
 
   useEffect(() => {
-    getProductData();
-    getOrderData();
     getUserData();
   }, []);
 
-  const [searchkey, setSearchkey] = useState('')
-  const [filterType, setFilterType] = useState('')
-  const [filterPrice, setFilterPrice] = useState('')
+  useEffect(() => {
+    console.log("WishList Updated:", wishLists);
+  }, [wishLists]);
+  const isProductInWishList = (product) => {
+    return wishLists.some(item => item.id === product.id);
+  };
+  const updateWishList = async () => {
+    try {
+      await setDoc(doc(fireDB, "users", currentUser.id), currentUser);
+      await getUserData();
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
+  useEffect(() => {
+    getProductData();
+  }, []);
+
+  const [searchkey, setSearchkey] = useState('');
+  const [filterType, setFilterType] = useState('');
+  const [filterPrice, setFilterPrice] = useState('');
+
+  const removeProductFromWishList = async (product) => {
+    const updatedWishList = currentUser.wishList.filter(item => item.id !== product.id);
+    currentUser.wishList = updatedWishList;
+    try {
+      await setDoc(doc(fireDB, "users", currentUser.id), currentUser);
+      setWishLists(updatedWishList);
+      toast.success('Product removed from wishlist');
+    } catch (error) {
+      console.log(error);
+      toast.error('Failed to remove product from wishlist');
+    }
+  };
 
   return (
     <MyContext.Provider value={{
       mode, toggleMode, loading, setLoading,
       products, setProducts, addProduct, product,
-      updateProduct,edithandle,deleteProduct,order,user,
-      searchkey, setSearchkey,filterType, setFilterType,
-      filterPrice, setFilterPrice
+      updateProduct, edithandle, deleteProduct, order, user,
+      searchkey, setSearchkey, filterType, setFilterType,
+      filterPrice, setFilterPrice, getUsersData, getProductData, getOrderData, getUserData, currentUser, updateWishList, wishLists, isProductInWishList,removeProductFromWishList
     }}>
       {props.children}
     </MyContext.Provider>
   )
 }
 
-export default MyState
+export default MyState;

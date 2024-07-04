@@ -12,6 +12,7 @@ import AddProduct from "./pages/admin/pages/AddProduct"
 import UpdateProduct from "./pages/admin/pages/UpdateProduct"
 import Login from './pages/registration/Login'
 import AllProducts from "./pages/allproducts/AllProducts"
+import WishList from "./pages/prodctinfo/wishlist/WishList"
 import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css'
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path="/*" element={<NoPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/wishlist" element={<WishList />} />
           <Route path="/allproducts" element={<AllProducts/>} />
           <Route path="/productinfo/:id" element={<ProductInfo />} />
           <Route path="/addproduct" element={<ProtectedRouteForAdmin><AddProduct /></ProtectedRouteForAdmin>} />
@@ -41,7 +43,7 @@ function App() {
 export default App
 //user
 export const ProtectedRoute = ({ children }) => {
-  const user = localStorage.getItem('user')
+  const user = localStorage.getItem('user_login')
   if (user) {
     return children
   } else {
@@ -52,7 +54,7 @@ export const ProtectedRoute = ({ children }) => {
 const ProtectedRouteForAdmin = (
   { children }
 ) => {
-  const admin = JSON.parse(localStorage.getItem('user'))
+  const admin = JSON.parse(localStorage.getItem('user_login'))
   if (admin.user.email === 'sukanyaparh@gmail.com') {
     return children
   }

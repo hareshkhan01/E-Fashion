@@ -1,24 +1,24 @@
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import myContext from '../../context/data/myContext';
-import { useContext, useState } from 'react';
+import { useContext, useState,useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { auth } from '../../firebase/FirebaseConfig';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import Loader from '../../components/loader/Loader';
+import { fireDB } from '../../firebase/FirebaseConfig';
+import { collection, query, where,getDocs } from "firebase/firestore";
 
 function Login() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
     const context = useContext(myContext)
     const { loading, setLoading } = context
-
     const signin = async () => {
         setLoading(true);
         try {
             const result = await signInWithEmailAndPassword(auth, email, password)
-            localStorage.setItem('user', JSON.stringify(result));
+            localStorage.setItem('user_login', JSON.stringify(result));
             toast.success('Signin Successfully', {
                 position: "top-right",
                 autoClose: 2000,
@@ -29,9 +29,9 @@ function Login() {
                 progress: undefined,
                 theme: "colored",
             });
-            
             window.location.href = '/'
             setLoading(false);
+            
         } catch (error) {
             toast.error('Sigin Failed', {
                 position: "top-right",

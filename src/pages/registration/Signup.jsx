@@ -25,6 +25,7 @@ function Signup() {
                 name: name,
                 uid: users.user.uid,
                 email: users.user.email,
+                wishList:[],
                 time: Timestamp.now()
             }
             const userRef=collection(fireDB,"users")
@@ -34,6 +35,7 @@ function Signup() {
             setEmail("")
             setPassword("")
             setLoading(false)
+            window.location.href='/login'
         }
         catch(error)
         {
