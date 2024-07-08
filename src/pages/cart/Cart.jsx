@@ -7,11 +7,11 @@ import { deleteFromCart } from '../../redux/cartSlice';
 import { toast } from 'react-toastify';
 import { addDoc, collection } from 'firebase/firestore';
 import { fireDB } from '../../firebase/FirebaseConfig';
-
+import { clearCart } from '../../redux/cartSlice';
 function Cart() {
 
   const context = useContext(myContext)
-  const { mode } = context;
+  const { mode,buyProducts } = context;
 
   const dispatch = useDispatch()
   const cartItems = useSelector((state) => state.cart)
@@ -90,6 +90,8 @@ function Cart() {
         // console.log(response)
         toast.success('Payment Successful')
         // deleteCart()
+        buyProducts(cartItems)
+        //*** */ window.location.reload
         localStorage.removeItem('cart')
         const paymentId = response.razorpay_payment_id
         // store in firebase 
@@ -104,16 +106,21 @@ function Cart() {
               year: "numeric",
             }
           ),
-          email: JSON.parse(localStorage.getItem("user")).user.email,
-          userid: JSON.parse(localStorage.getItem("user")).user.uid,
-          paymentId
+          email: JSON.parse(localStorage.getItem("user_login")).user.email,
+          userid: JSON.parse(localStorage.getItem("user_login")).user.uid,
+          paymentId,
+          _status:"pending"
         }
 
         try {
           const result = addDoc(collection(fireDB, "orders"), orderInfo)
+          localStorage.removeItem('cart')
+          // window.location.href='/';
         } catch (error) {
           console.log(error)
         }
+        clearCart()
+        window.location.reload
       },
 
       theme: {
@@ -124,6 +131,7 @@ function Cart() {
     };
     var pay = new window.Razorpay(options);
     pay.open();
+    
     console.log(pay)
   }
 

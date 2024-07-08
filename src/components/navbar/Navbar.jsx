@@ -74,7 +74,11 @@ export default function Navbar() {
                       Order
                     </Link>
                   </div>
-
+                  {user ? <div className="flow-root">
+                    <Link to={'/wishlist'} style={{ color: mode === 'dark' ? 'white' : '', }} className="-m-2 block p-2 font-medium text-gray-900">
+                      Wishlist
+                    </Link>
+                  </div> : ""}
                   {admin?.user?.email === 'sukanyaparh@gmail.com' ? <div className="flow-root">
                     <Link to={'/dashboard'} className="-m-2 block p-2 font-medium text-gray-900" style={{ color: mode === 'dark' ? 'white' : '', }}>
                       Admin
@@ -151,7 +155,11 @@ export default function Navbar() {
                   <Link to={'/order'} className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
                     Order
                   </Link>
-
+                  {user ? <div className="flow-root">
+                    <Link to={'/wishlist'} style={{ color: mode === 'dark' ? 'white' : '', }} className="-m-2 block p-2 font-medium text-gray-900">
+                      Wishlist
+                    </Link>
+                  </div> : ""}
                   {admin?.user?.email === 'sukanyaparh@gmail.com'?
                    <Link to={'/dashboard'} className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
                     Admin

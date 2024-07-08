@@ -1,0 +1,8 @@
+.pending-status::before {
+    content: '•'; /* Bullet character */
+    color: yellow; /* Bullet color */
+    margin-right: 8px; /* Space between bullet and text */
+    font-size: 24px; /* Size of the bullet */
+    vertical-align: middle; /* Align bullet with text */
+  }
+  

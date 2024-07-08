@@ -17,7 +17,24 @@ function Login() {
     const signin = async () => {
         setLoading(true);
         try {
-            const result = await signInWithEmailAndPassword(auth, email, password)
+            const result = await signInWithEmailAndPassword(auth, email, password);
+    
+            // Check if the user's email is verified
+            if (!result.user.emailVerified) {
+                toast.error('Please verify your email first', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+                setLoading(false);
+                return;
+            }
+    
             localStorage.setItem('user_login', JSON.stringify(result));
             toast.success('Signin Successfully', {
                 position: "top-right",
@@ -29,11 +46,11 @@ function Login() {
                 progress: undefined,
                 theme: "colored",
             });
-            window.location.href = '/'
+            window.location.href = '/';
             setLoading(false);
-            
+    
         } catch (error) {
-            toast.error('Sigin Failed', {
+            toast.error('Signin Failed', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: true,
@@ -46,6 +63,7 @@ function Login() {
             setLoading(false);
         }
     }
+    
 
     return (
         <div className=' flex justify-center items-center h-screen'>
@@ -79,7 +97,13 @@ function Login() {
                         Login
                     </button>
                 </div>
-                <div>
+                <div className='flex justify-center '>
+                    <h2 className='text-white'><Link className=' text-yellow-500 font-bold' to={'/forgotpassword'}>Forgot Passowrd</Link></h2>
+                </div>
+                <div className='flex justify-center '>
+                    <h2 className='text-white'>Or</h2>
+                </div>
+                <div className='flex justify-center '>
                     <h2 className='text-white'>Don't have an account <Link className=' text-yellow-500 font-bold' to={'/signup'}>Signup</Link></h2>
                 </div>
             </div>

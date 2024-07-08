@@ -15,6 +15,7 @@ import AllProducts from "./pages/allproducts/AllProducts"
 import WishList from "./pages/prodctinfo/wishlist/WishList"
 import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css'
+import ForgotPassowrd from "./pages/registration/ForgotPassowrd"
 function App() {
 
   return (
@@ -29,7 +30,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/wishlist" element={<WishList />} />
-          <Route path="/allproducts" element={<AllProducts/>} />
+          <Route path="/forgotpassword" element={<ForgotPassowrd />} />
+          <Route path="/allproducts" element={<AllProducts />} />
           <Route path="/productinfo/:id" element={<ProductInfo />} />
           <Route path="/addproduct" element={<ProtectedRouteForAdmin><AddProduct /></ProtectedRouteForAdmin>} />
           <Route path="/updateproduct" element={<ProtectedRouteForAdmin><UpdateProduct /></ProtectedRouteForAdmin>} />

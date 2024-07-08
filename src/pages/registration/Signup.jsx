@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import myContext from '../../context/data/myContext';
 import Loader from '../../firebase/loader/Loader';
 import { toast } from 'react-toastify';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import { auth, fireDB } from '../../firebase/FirebaseConfig';
 import { Timestamp, addDoc, collection } from 'firebase/firestore';
 function Signup() {
@@ -19,23 +19,26 @@ function Signup() {
             return toast.error("All fields are required")
         }
         try {
-            const users = await createUserWithEmailAndPassword(auth, email, password)
+            const userCred = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCred.user;
+            await sendEmailVerification(user);
 
-            const user = {
+            const newUser = {
                 name: name,
-                uid: users.user.uid,
-                email: users.user.email,
-                wishList:[],
+                uid: user.uid,
+                email: user.email,
+                wishList: [],
                 time: Timestamp.now()
-            }
-            const userRef=collection(fireDB,"users")
-            await addDoc(userRef,user)
-            toast.success("Signup Successfully")
-            setName("")
-            setEmail("")
-            setPassword("")
-            setLoading(false)
-            window.location.href='/login'
+            };
+            const userRef = collection(fireDB, "users");
+            await addDoc(userRef, newUser);
+            toast.success("Signup Successfully");
+            toast.warning("Kindly verify the email check you mail box")
+            setName("");
+            setEmail("");
+            setPassword("");
+            setLoading(false);
+            // window.location.href = '/login';
         }
         catch(error)
         {

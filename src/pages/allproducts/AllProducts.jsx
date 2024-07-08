@@ -10,8 +10,8 @@ const AllProducts = () => {
   const { mode, product } = context;
 
   const dispatch = useDispatch()
-    const cartItems = useSelector((state) => state.cart)
-    console.log(cartItems)
+  const cartItems = useSelector((state) => state.cart)
+  console.log(cartItems)
   // add to cart
   const addCart = (product) => {
     dispatch(addToCart(product))
@@ -24,7 +24,7 @@ const AllProducts = () => {
   return (
     <Layout><div className="flex flex-wrap -m-4">
       {product.map((item, index) => {
-        const { title, price, description, imageUrl } = item;
+        const { title, price, description, imageUrl, number_of_product } = item;
         return (
           <div className="p-4 md:w-1/4  drop-shadow-lg " >
             <div className="h-full border-2 hover:shadow-gray-100 hover:shadow-2xl transition-shadow duration-300 ease-in-out    border-gray-200 border-opacity-60 rounded-2xl overflow-hidden" style={{ backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '', color: mode === 'dark' ? 'white' : '', }} >
@@ -36,10 +36,11 @@ const AllProducts = () => {
                 <h1 className="title-font text-lg font-medium text-gray-900 mb-3" style={{ color: mode === 'dark' ? 'white' : '', }}>{title}</h1>
                 {/*<p className="leading-relaxed mb-3">{item.description}</p>*/}
                 <p className="leading-relaxed mb-3" style={{ color: mode === 'dark' ? 'white' : '' }}>₹ {price}</p>
-                <div className=" flex justify-center">
-                  <button onClick={() => addCart(item)} type="button" className="focus:outline-none text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm w-full  py-2">Add To Cart</button>
-
-                </div>
+                {parseInt(number_of_product,10) > 0 ? <div className=" flex justify-center">
+                  <button onClick={() => { user ? addCart(item) : location.href = "/login" }} type="button" className="focus:outline-none text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm w-full  py-2">Add To Cart</button>
+                </div> : <div className=" flex justify-center">
+                  <h2 className='text-red-600 text-2xl'>Out of stock</h2>
+                </div>}
               </div>
 
             </div>

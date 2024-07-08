@@ -205,6 +205,39 @@ function MyState(props) {
       toast.error('Failed to remove product from wishlist');
     }
   };
+  (null)
+  const buyProducts = async (products) => {
+    try {
+      const updatePromises = products.map(async (product) => {
+        if (product !== null) {
+          console.log(product);
+          let num = parseInt(product.number_of_product, 10);
+          console.log("Number = " + (num - 1));
+          const updatedProduct = { ...product, number_of_product: (num - 1).toString() };
+          console.log(updatedProduct);
+          await setDoc(doc(fireDB, "products", product.id), updatedProduct);
+          getProductData();
+        }
+      });
+
+      await Promise.all(updatePromises);
+      window.location.href = '/';
+    } catch (error) {
+      console.error("Error updating products: ", error);
+    }
+  };
+
+  const updateOrder=async (order)=>{
+    setLoading(true);
+    try{
+      await setDoc(doc(fireDB,"orders",order.id),order);
+      
+    }
+    catch(error)
+    {
+
+    }
+  }
 
   return (
     <MyContext.Provider value={{
@@ -212,7 +245,7 @@ function MyState(props) {
       products, setProducts, addProduct, product,
       updateProduct, edithandle, deleteProduct, order, user,
       searchkey, setSearchkey, filterType, setFilterType,
-      filterPrice, setFilterPrice, getUsersData, getProductData, getOrderData, getUserData, currentUser, updateWishList, wishLists, isProductInWishList,removeProductFromWishList
+      filterPrice, setFilterPrice, getUsersData, getProductData, getOrderData, getUserData, currentUser, updateWishList, wishLists, isProductInWishList, removeProductFromWishList, buyProducts
     }}>
       {props.children}
     </MyContext.Provider>

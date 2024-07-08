@@ -51,6 +51,14 @@ function UpdateProduct() {
                         />
                     </div>
                     <div>
+                        <input type="text"
+                            name='Number of product'
+                            onChange={(e) => setProducts({ ...products, number_of_product: e.target.value })} value={products.number_of_product}
+                            className=' bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
+                            placeholder='Number of product'
+                        />
+                    </div>
+                    <div>
                         <textarea cols="30" rows="10"
                             name='description' onChange={(e) => setProducts({ ...products, description: e.target.value })}
                             value={products.description}
